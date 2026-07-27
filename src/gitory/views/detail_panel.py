@@ -93,20 +93,20 @@ class DetailPanel(QWidget):
         btn_layout = QVBoxLayout()
         btn_layout.setSpacing(6)
 
-        self._diff_btn = QPushButton("📄 Show Diff")
+        self._diff_btn = QPushButton("Show Diff")
         self._diff_btn.setObjectName("primaryButton")
         self._diff_btn.clicked.connect(lambda: self.show_diff_clicked.emit(self._current_sha))
         btn_layout.addWidget(self._diff_btn)
 
-        self._checkout_btn = QPushButton("↩ Checkout Commit")
+        self._checkout_btn = QPushButton("Checkout Commit")
         self._checkout_btn.clicked.connect(lambda: self.checkout_clicked.emit(self._current_sha))
         btn_layout.addWidget(self._checkout_btn)
 
-        self._cherry_btn = QPushButton("🍒 Cherry Pick")
+        self._cherry_btn = QPushButton("Cherry Pick")
         self._cherry_btn.clicked.connect(lambda: self.cherry_pick_clicked.emit(self._current_sha))
         btn_layout.addWidget(self._cherry_btn)
 
-        self._copy_btn = QPushButton("📋 Copy SHA")
+        self._copy_btn = QPushButton("Copy SHA")
         self._copy_btn.clicked.connect(lambda: self.copy_sha_clicked.emit(self._current_sha))
         btn_layout.addWidget(self._copy_btn)
 

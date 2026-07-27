@@ -104,12 +104,12 @@ class CommitDialog(QDialog):
         cancel_btn.clicked.connect(self.reject)
         btn_layout.addWidget(cancel_btn)
 
-        commit_btn = QPushButton("✅ Commit")
+        commit_btn = QPushButton("Commit")
         commit_btn.setObjectName("primaryButton")
         commit_btn.clicked.connect(lambda: self._on_commit(push=False))
         btn_layout.addWidget(commit_btn)
 
-        commit_push_btn = QPushButton("📤 Commit & Push")
+        commit_push_btn = QPushButton("Commit & Push")
         commit_push_btn.setObjectName("primaryButton")
         commit_push_btn.clicked.connect(lambda: self._on_commit(push=True))
         btn_layout.addWidget(commit_push_btn)

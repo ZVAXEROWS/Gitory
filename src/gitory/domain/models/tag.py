@@ -31,5 +31,5 @@ class Tag:
 
     @property
     def display_name(self) -> str:
-        """Display name with tag icon indicator."""
-        return f"🏷 {self.name}"
+        """Display name with tag indicator."""
+        return f"Tag: {self.name}"

@@ -76,19 +76,19 @@ class Sidebar(QWidget):
         layout.addWidget(self._tree, stretch=1)
 
         # Section root items.
-        self._branches_root = QTreeWidgetItem(self._tree, ["🌿 Branches"])
+        self._branches_root = QTreeWidgetItem(self._tree, ["Branches"])
         self._branches_root.setExpanded(True)
         self._branches_root.setFlags(Qt.ItemFlag.ItemIsEnabled)
 
-        self._remote_root = QTreeWidgetItem(self._tree, ["🌐 Remote Branches"])
+        self._remote_root = QTreeWidgetItem(self._tree, ["Remote Branches"])
         self._remote_root.setExpanded(True)
         self._remote_root.setFlags(Qt.ItemFlag.ItemIsEnabled)
 
-        self._tags_root = QTreeWidgetItem(self._tree, ["🏷 Tags"])
+        self._tags_root = QTreeWidgetItem(self._tree, ["Tags"])
         self._tags_root.setExpanded(False)
         self._tags_root.setFlags(Qt.ItemFlag.ItemIsEnabled)
 
-        self._stash_root = QTreeWidgetItem(self._tree, ["📦 Stashes"])
+        self._stash_root = QTreeWidgetItem(self._tree, ["Stashes"])
         self._stash_root.setExpanded(False)
         self._stash_root.setFlags(Qt.ItemFlag.ItemIsEnabled)
 
@@ -104,9 +104,9 @@ class Sidebar(QWidget):
         Args:
             info: Repository metadata.
         """
-        self._repo_label.setText(f"📁 {info.name}")
+        self._repo_label.setText(f"Repo: {info.name}")
         branch_text = info.current_branch if not info.is_detached else "HEAD (detached)"
-        self._branch_label.setText(f"⎇ {branch_text}")
+        self._branch_label.setText(f"Branch: {branch_text}")
         self._head_label.setText(f"HEAD: {info.head_sha[:7]}" if info.head_sha else "")
 
     def update_branches(self, branches: list[Branch]) -> None:
@@ -127,7 +127,7 @@ class Sidebar(QWidget):
             else:
                 display = branch.name
                 if branch.is_current:
-                    display = f"● {branch.name}"
+                    display = f"* {branch.name}"
                 item = QTreeWidgetItem(self._branches_root, [display])
                 item.setData(0, Qt.ItemDataRole.UserRole, ("branch", branch.name))
                 item.setToolTip(0, f"Branch: {branch.name}\nTip: {branch.tip_sha}")
@@ -141,8 +141,8 @@ class Sidebar(QWidget):
         # Update counts in header.
         local_count = sum(1 for b in branches if not b.is_remote)
         remote_count = sum(1 for b in branches if b.is_remote)
-        self._branches_root.setText(0, f"🌿 Branches ({local_count})")
-        self._remote_root.setText(0, f"🌐 Remote ({remote_count})")
+        self._branches_root.setText(0, f"Branches ({local_count})")
+        self._remote_root.setText(0, f"Remote ({remote_count})")
 
     def update_tags(self, tags: list[Tag]) -> None:
         """Update the tags list."""
@@ -151,7 +151,7 @@ class Sidebar(QWidget):
             item = QTreeWidgetItem(self._tags_root, [tag.name])
             item.setData(0, Qt.ItemDataRole.UserRole, ("tag", tag.name))
             item.setToolTip(0, f"Tag: {tag.name}\nCommit: {tag.short_sha}")
-        self._tags_root.setText(0, f"🏷 Tags ({len(tags)})")
+        self._tags_root.setText(0, f"Tags ({len(tags)})")
 
     def update_stashes(self, stashes: list[StashEntry]) -> None:
         """Update the stashes list."""
@@ -160,7 +160,7 @@ class Sidebar(QWidget):
             item = QTreeWidgetItem(self._stash_root, [stash.display_name])
             item.setData(0, Qt.ItemDataRole.UserRole, ("stash", stash.index))
             item.setToolTip(0, f"Stash: {stash.ref}\n{stash.message}")
-        self._stash_root.setText(0, f"📦 Stashes ({len(stashes)})")
+        self._stash_root.setText(0, f"Stashes ({len(stashes)})")
 
     def clear(self) -> None:
         """Clear all sidebar data."""

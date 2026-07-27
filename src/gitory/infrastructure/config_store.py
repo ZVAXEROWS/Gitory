@@ -14,7 +14,23 @@ logger = logging.getLogger(__name__)
 
 
 def _default_config_dir() -> Path:
-    """Return the default configuration directory."""
+    """Return the default configuration directory.
+
+    In portable mode (when a 'PORTABLE_MODE' marker file exists next to the executable
+    or GITORY_PORTABLE=1 is set), configuration is saved in a local 'gitory_data' folder.
+    Otherwise (when installed via Wizard installer or AppImage), it is stored in ~/.gitory.
+    """
+    import os
+    import sys
+
+    if os.environ.get("GITORY_PORTABLE") == "1":
+        return Path.cwd() / "gitory_data"
+
+    if getattr(sys, "frozen", False):
+        exe_dir = Path(sys.executable).parent
+        if (exe_dir / "PORTABLE_MODE").exists():
+            return exe_dir / "gitory_data"
+
     return Path.home() / ".gitory"
 
 

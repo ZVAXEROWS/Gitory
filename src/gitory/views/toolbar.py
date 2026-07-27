@@ -58,12 +58,12 @@ class Toolbar(QToolBar):
         """Create all toolbar buttons with tooltips."""
         # --- Repository ---
         self._add_action(
-            "📂 Open", "Open Repository",
+            "Open", "Open Repository",
             "Open an existing Git repository.\n\nBrowse to a folder containing a .git directory.",
             self.open_repo_clicked,
         )
         self._add_action(
-            "🆕 Init", "Initialize Repository",
+            "Init", "Initialize Repository",
             "Create a new Git repository.\n\ngit init\n\nSets up a new .git directory in the selected folder.",
             self.init_repo_clicked,
         )
@@ -72,12 +72,12 @@ class Toolbar(QToolBar):
 
         # --- Commit ---
         self._add_action(
-            "✅ Commit", "Commit",
+            "Commit", "Commit",
             "Commit staged changes.\n\ngit commit -m \"message\"\n\nRecords staged changes as a new commit.",
             self.commit_clicked,
         )
         self._add_action(
-            "📤 Commit+Push", "Commit & Push",
+            "Commit+Push", "Commit & Push",
             "Commit and push in one step.\n\ngit commit + git push\n\nRecords changes and uploads to remote.",
             self.commit_push_clicked,
         )
@@ -86,17 +86,17 @@ class Toolbar(QToolBar):
 
         # --- Remote ---
         self._add_action(
-            "⬆ Push", "Push",
+            "Push", "Push",
             "Push commits to remote.\n\ngit push origin <branch>\n\nUploads local commits to the remote repository.",
             self.push_clicked,
         )
         self._add_action(
-            "⬇ Pull", "Pull",
+            "Pull", "Pull",
             "Pull from remote.\n\ngit pull origin <branch>\n\nDownloads and integrates remote changes.",
             self.pull_clicked,
         )
         self._add_action(
-            "🔄 Fetch", "Fetch",
+            "Fetch", "Fetch",
             "Fetch from all remotes.\n\ngit fetch --all --prune\n\nDownloads remote data without merging.",
             self.fetch_clicked,
         )
@@ -105,32 +105,32 @@ class Toolbar(QToolBar):
 
         # --- Branch ---
         self._add_action(
-            "🌿 Branch", "Create Branch",
+            "Branch", "Create Branch",
             "Create a new branch.\n\ngit branch <name>\n\nCreates a new branch pointer at the current commit.",
             self.branch_clicked,
         )
         self._add_action(
-            "🔀 Merge", "Merge",
+            "Merge", "Merge",
             "Merge a branch.\n\ngit merge <branch>\n\nIntegrates changes from another branch into the current one.",
             self.merge_clicked,
         )
         self._add_action(
-            "📐 Rebase", "Rebase",
-            "Rebase onto another branch.\n\ngit rebase <branch>\n\n⚠ WARNING: Rewrites commit history.\nDo not rebase published commits.",
+            "Rebase", "Rebase",
+            "Rebase onto another branch.\n\ngit rebase <branch>\n\nWARNING: Rewrites commit history.\nDo not rebase published commits.",
             self.rebase_clicked,
         )
         self._add_action(
-            "↩ Checkout", "Checkout",
+            "Checkout", "Checkout",
             "Switch to a branch or commit.\n\ngit checkout <ref>\n\nUpdates the working tree to match the target.",
             self.checkout_clicked,
         )
         self._add_action(
-            "⏪ Reset", "Reset",
-            "Reset current branch.\n\ngit reset <mode> <target>\n\n⚠ WARNING: --hard discards ALL working directory changes.\nThis cannot be undone easily.",
+            "Reset", "Reset",
+            "Reset current branch.\n\ngit reset <mode> <target>\n\nWARNING: --hard discards ALL working directory changes.\nThis cannot be undone easily.",
             self.reset_clicked,
         )
         self._add_action(
-            "🍒 Cherry Pick", "Cherry Pick",
+            "Cherry Pick", "Cherry Pick",
             "Cherry-pick a commit.\n\ngit cherry-pick <sha>\n\nApplies changes from a specific commit onto the current branch.",
             self.cherry_pick_clicked,
         )
@@ -139,12 +139,12 @@ class Toolbar(QToolBar):
 
         # --- Stash / Tag ---
         self._add_action(
-            "📦 Stash", "Stash",
+            "Stash", "Stash",
             "Manage stashes.\n\ngit stash push\n\nTemporarily saves uncommitted changes.",
             self.stash_clicked,
         )
         self._add_action(
-            "🏷 Tag", "Create Tag",
+            "Tag", "Create Tag",
             "Manage tags.\n\ngit tag <name>\n\nCreates a named reference to a specific commit.",
             self.tag_clicked,
         )
@@ -153,12 +153,12 @@ class Toolbar(QToolBar):
 
         # --- Utility ---
         self._add_action(
-            "🔃 Refresh", "Refresh",
+            "Refresh", "Refresh",
             "Refresh the repository view.\n\nReloads all data from the git repository.",
             self.refresh_clicked,
         )
         self._add_action(
-            "⚙ Settings", "Settings",
+            "Settings", "Settings",
             "Application settings.\n\nConfigure theme, graph appearance, git executable path, etc.",
             self.settings_clicked,
         )

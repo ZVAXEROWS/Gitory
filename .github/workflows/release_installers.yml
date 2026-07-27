@@ -1,0 +1,73 @@
+name: Build Cross-Platform Installers
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-windows-installer:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Install Inno Setup Compiler
+        run: |
+          winget install -e --id JRSoftware.InnoSetup --silent --accept-package-agreements --accept-source-agreements
+        continue-on-error: true
+
+      - name: Build Windows Setup Wizard Installer
+        run: |
+          python build_all_installers.py
+
+      - name: Upload Windows Setup Wizard Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Gitory-Setup-Windows
+          path: dist/installers/Gitory-Setup-*.exe
+          if-no-files-found: error
+
+  build-linux-appimage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python and System Tools
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Qt and PySide6 System Libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxcb-shape0 libxcb-xfixes0 fuse
+
+      - name: Install Python Dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Build Linux AppImage
+        run: |
+          python3 build_all_installers.py
+
+      - name: Upload Linux AppImage Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Gitory-AppImage-Linux
+          path: dist/installers/Gitory-*.AppImage
+          if-no-files-found: error

@@ -385,7 +385,7 @@ class MainWindow(QMainWindow):
             self,
             "Reset",
             "Reset will move the current branch pointer.\n\n"
-            "⚠ --hard will DISCARD all uncommitted changes.\n\n"
+            "WARNING: --hard will DISCARD all uncommitted changes.\n\n"
             "Are you sure?",
             "git reset --hard <target>",
         ):

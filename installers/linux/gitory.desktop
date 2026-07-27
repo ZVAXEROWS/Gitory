@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Gitory
+GenericName=Git Repository Visualizer
+Comment=Professional graphical visualization and control for Git repositories
+Exec=Gitory %f
+Icon=gitory
+Terminal=false
+Type=Application
+Categories=Development;RevisionControl;Qt;
+Keywords=git;version;control;history;branch;graph;gui;visualizer;
+StartupNotify=true
+MimeType=inode/directory;

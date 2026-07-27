@@ -50,7 +50,7 @@ class TagNodeItem(QGraphicsRectItem):
         # Label.
         label = QGraphicsTextItem(self)
         tag_text = ", ".join(node.tag_names) if node.tag_names else node.commit.subject[:30]
-        label.setPlainText(f"🏷 {tag_text}")
+        label.setPlainText(f"tag: {tag_text}")
         label.setDefaultTextColor(QColor("#c0caf5"))
         font = label.font()
         font.setPointSize(8)

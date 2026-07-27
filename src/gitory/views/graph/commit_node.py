@@ -98,7 +98,7 @@ class CommitNodeItem(QGraphicsEllipseItem):
         for branch in self._node.branch_names:
             decorations.append(f"[{branch}]")
         for tag in self._node.tag_names:
-            decorations.append(f"🏷{tag}")
+            decorations.append(f"[tag: {tag}]")
 
         if decorations:
             label_text = " ".join(decorations) + "  " + label_text

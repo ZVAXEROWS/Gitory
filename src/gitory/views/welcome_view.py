@@ -65,14 +65,14 @@ class WelcomeView(QWidget):
         btn_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
         btn_layout.setSpacing(16)
 
-        open_btn = QPushButton("📂  Open Repository")
+        open_btn = QPushButton("Open Repository")
         open_btn.setObjectName("primaryButton")
         open_btn.setMinimumSize(200, 48)
         open_btn.setFont(QFont("Segoe UI", 11))
         open_btn.clicked.connect(self.open_clicked.emit)
         btn_layout.addWidget(open_btn)
 
-        init_btn = QPushButton("🆕  Initialize Repository")
+        init_btn = QPushButton("Initialize Repository")
         init_btn.setMinimumSize(200, 48)
         init_btn.setFont(QFont("Segoe UI", 11))
         init_btn.clicked.connect(self.init_clicked.emit)
@@ -124,7 +124,7 @@ class WelcomeView(QWidget):
             return
 
         for entry in entries:
-            item = QListWidgetItem(f"📁 {entry.name}\n   {entry.path}")
+            item = QListWidgetItem(f"{entry.name}\n   {entry.path}")
             item.setData(Qt.ItemDataRole.UserRole, entry.path)
             self._recent_list.addItem(item)
 
