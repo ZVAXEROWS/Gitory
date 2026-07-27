@@ -4,6 +4,7 @@
 
 Gitory helps you *visualize*, *understand*, and *control* Git repositories through an interactive commit graph and an intuitive graphical interface. Built with Python and PySide6 (Qt6).
 
+
 ## Features
 
 - **Interactive Commit Graph** — zoom, pan, and explore your repository's history as a beautiful DAG
