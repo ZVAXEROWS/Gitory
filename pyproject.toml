@@ -1,0 +1,53 @@
+[project]
+name = "gitory"
+version = "0.1.0"
+description = "A professional Git repository visualizer — understand Git through interactive graphs."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12"
+authors = [
+    { name = "Ahmed Mohamed" },
+]
+keywords = ["git", "visualizer", "graph", "pyside6", "desktop"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Version Control :: Git",
+    "Environment :: X11 Applications :: Qt",
+]
+dependencies = [
+    "PySide6>=6.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-qt>=4.4",
+    "ruff>=0.5.0",
+]
+
+[project.scripts]
+gitory = "gitory.__main__:main"
+
+[project.gui-scripts]
+gitory-gui = "gitory.__main__:main"
+
+[build-system]
+requires = ["setuptools>=75.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM", "TCH"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+qt_api = "pyside6"
