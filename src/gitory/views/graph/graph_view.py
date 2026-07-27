@@ -127,9 +127,7 @@ class GraphView(QGraphicsView):
 
     def mousePressEvent(self, event) -> None:
         """Start panning on middle mouse button or Ctrl+left click."""
-        if event.button() == Qt.MouseButton.MiddleButton:
-            self._start_pan(event)
-        elif event.button() == Qt.MouseButton.LeftButton and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+        if event.button() == Qt.MouseButton.MiddleButton or event.button() == Qt.MouseButton.LeftButton and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
             self._start_pan(event)
         else:
             super().mousePressEvent(event)

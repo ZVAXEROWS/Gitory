@@ -8,7 +8,7 @@ raw text and return typed domain objects.
 from __future__ import annotations
 
 import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from gitory.domain.models.branch import Branch
 from gitory.domain.models.commit import Commit
@@ -62,12 +62,12 @@ class GitParser:
             (typically newest first in topo order).
         """
         commits: list[Commit] = []
-        if not raw.strip():
+        if not raw or not raw.strip("\r\n\t "):
             return commits
 
-        records = raw.strip().split(_RECORD_SEP)
+        records = raw.strip("\r\n\t ").split(_RECORD_SEP)
         for record in records:
-            record = record.strip()
+            record = record.strip("\r\n\t ")
             if not record:
                 continue
 
@@ -88,9 +88,9 @@ class GitParser:
 
             # Parse timestamp.
             try:
-                timestamp = datetime.fromtimestamp(int(timestamp_str), tz=timezone.utc)
+                timestamp = datetime.fromtimestamp(int(timestamp_str), tz=UTC)
             except (ValueError, OSError):
-                timestamp = datetime.now(tz=timezone.utc)
+                timestamp = datetime.now(tz=UTC)
 
             # Parse ref decorations (branches, tags, HEAD).
             branches: list[str] = []
@@ -149,14 +149,14 @@ class GitParser:
             if not line:
                 continue
 
-            parts = line.split()
-            if len(parts) < 3:
+            parts = line.split(_FIELD_SEP) if _FIELD_SEP in line else line.split()
+            if len(parts) < 2:
                 continue
 
-            name = parts[0]
-            tip_sha = parts[1]
-            is_current = parts[2] == "*"
-            tracking = parts[3] if len(parts) > 3 else None
+            name = parts[0].strip()
+            tip_sha = parts[1].strip()
+            is_current = parts[2].strip() == "*" if len(parts) > 2 else False
+            tracking = parts[3].strip() if len(parts) > 3 and parts[3].strip() else None
 
             is_remote = name.startswith("origin/") or "/" in name
             remote_name = name.split("/")[0] if is_remote else None

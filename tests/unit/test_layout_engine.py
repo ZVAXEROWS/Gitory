@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
-
-import pytest
+from datetime import UTC, datetime
 
 from gitory.domain.models.commit import Commit
 from gitory.graph_engine.lane_allocator import LaneAllocator
@@ -24,7 +22,7 @@ def _make_commit(
         message=message,
         author_name="Test",
         author_email="test@test.com",
-        timestamp=datetime(2024, 1, 1, tzinfo=timezone.utc),
+        timestamp=datetime(2024, 1, 1, tzinfo=UTC),
         parent_shas=parents or [],
         branches=branches or [],
         is_head=is_head,

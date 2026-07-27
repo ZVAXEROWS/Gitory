@@ -2,10 +2,6 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
-
-import pytest
-
 from gitory.infrastructure.git_parser import GitParser
 
 

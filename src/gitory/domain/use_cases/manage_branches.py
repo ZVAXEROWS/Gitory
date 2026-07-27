@@ -9,6 +9,9 @@ from gitory.domain.models.branch import Branch
 from gitory.infrastructure.git_executor import GitExecutor
 from gitory.infrastructure.git_parser import GitParser
 
+# Field separator for branch format parsing.
+_FIELD_SEP = "\x1f"
+
 
 class ManageBranches:
     """Operations on Git branches."""
@@ -18,10 +21,8 @@ class ManageBranches:
 
     def list_branches(self) -> list[Branch]:
         """List all local and remote branches."""
-        result = self._executor.run(
-            "branch", "-a",
-            "--format=%(refname:short) %(objectname:short) %(HEAD) %(upstream:short)",
-        )
+        fmt = _FIELD_SEP.join(["%(refname:short)", "%(objectname:short)", "%(HEAD)", "%(upstream:short)"])
+        result = self._executor.run("branch", "-a", f"--format={fmt}")
         if result.success:
             return GitParser.parse_branches(result.output)
         return []

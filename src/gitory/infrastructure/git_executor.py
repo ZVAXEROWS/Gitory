@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import logging
 import subprocess
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 from PySide6.QtCore import QObject, Signal
@@ -47,12 +47,12 @@ class GitResult:
     @property
     def error_message(self) -> str:
         """Human-readable error message from stderr, stripped of whitespace."""
-        return self.stderr.strip() if self.stderr else ""
+        return self.stderr.strip("\r\n\t ") if self.stderr else ""
 
     @property
     def output(self) -> str:
         """Stripped stdout content."""
-        return self.stdout.strip() if self.stdout else ""
+        return self.stdout.strip("\r\n\t ") if self.stdout else ""
 
 
 class GitExecutor(QObject):
@@ -143,14 +143,14 @@ class GitExecutor(QObject):
             )
 
             # Emit output for the terminal panel.
-            if result.stdout.strip():
-                self.output_received.emit(result.stdout.strip(), False)
-            if result.stderr.strip():
-                self.output_received.emit(result.stderr.strip(), result.returncode != 0)
+            if result.stdout.strip("\r\n\t "):
+                self.output_received.emit(result.stdout.strip("\r\n\t "), False)
+            if result.stderr.strip("\r\n\t "):
+                self.output_received.emit(result.stderr.strip("\r\n\t "), result.returncode != 0)
 
             if not git_result.success:
                 logger.warning("Git command failed [%d]: %s", result.returncode, cmd_str)
-                logger.warning("stderr: %s", result.stderr.strip())
+                logger.warning("stderr: %s", result.stderr.strip("\r\n\t "))
 
             return git_result
 

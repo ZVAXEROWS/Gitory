@@ -8,7 +8,8 @@ from __future__ import annotations
 
 import json
 import logging
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass
+from datetime import UTC
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
@@ -69,7 +70,7 @@ class RepoStore:
             path: Path to the repository root.
             name: Display name (defaults to folder name).
         """
-        from datetime import datetime, timezone
+        from datetime import datetime
 
         path_str = str(path.resolve())
         name = name or path.name
@@ -81,7 +82,7 @@ class RepoStore:
         self._entries.insert(0, RecentEntry(
             path=path_str,
             name=name,
-            last_opened=datetime.now(tz=timezone.utc).isoformat(),
+            last_opened=datetime.now(tz=UTC).isoformat(),
         ))
 
         # Trim to max.

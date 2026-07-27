@@ -47,7 +47,7 @@ class InitRepository:
 
         # Run git init.
         self._executor.repo_path = path
-        result = self._executor.run("init", use_repo_path=False)
+        result = self._executor.run("init", str(path), use_repo_path=False)
         if not result.success:
             return False, f"git init failed: {result.error_message}"
 
@@ -102,6 +102,10 @@ class InitRepository:
 
         if files_created:
             self._executor.run("add", *files_created)
-            self._executor.run("commit", "-m", "Initial commit")
+            commit_res = self._executor.run("commit", "-m", "Initial commit")
+            if not commit_res.success and ("author identity unknown" in commit_res.error_message.lower() or "tell me who you are" in commit_res.error_message.lower()):
+                self._executor.run("config", "user.name", "Gitory User")
+                self._executor.run("config", "user.email", "user@gitory.app")
+                self._executor.run("commit", "-m", "Initial commit")
 
         return True, ""

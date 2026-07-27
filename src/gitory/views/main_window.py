@@ -9,7 +9,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QClipboard, QGuiApplication
+from PySide6.QtGui import QGuiApplication
 from PySide6.QtWidgets import (
     QFileDialog,
     QMainWindow,
@@ -21,7 +21,6 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from gitory.domain.models.commit import Commit
 from gitory.domain.models.graph import GraphLayout
 from gitory.domain.models.repository import RepositoryInfo
 from gitory.domain.use_cases.commit_changes import CommitChanges
@@ -41,7 +40,6 @@ from gitory.views.detail_panel import DetailPanel
 from gitory.views.dialogs import (
     BranchDialog,
     ConfirmationDialog,
-    RemoteDialog,
     SettingsDialog,
     TagDialog,
 )
@@ -475,7 +473,7 @@ class MainWindow(QMainWindow):
         if parts[0] == "git":
             parts = parts[1:]
 
-        result = self._executor.run(*parts)
+        _ = self._executor.run(*parts)
         # Output is handled by the executor's signals.
 
         # Refresh if it was a state-changing command.

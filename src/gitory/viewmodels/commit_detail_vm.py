@@ -8,7 +8,6 @@ from __future__ import annotations
 from PySide6.QtCore import QObject, Signal
 
 from gitory.domain.models.commit import Commit
-from gitory.domain.models.diff import FileDiff
 from gitory.domain.models.graph import GraphLayout
 from gitory.domain.use_cases.get_diff import GetDiff
 from gitory.domain.use_cases.manage_branches import ManageBranches
