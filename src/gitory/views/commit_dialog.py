@@ -15,6 +15,7 @@ from PySide6.QtWidgets import (
     QPushButton,
     QSplitter,
     QVBoxLayout,
+    QWidget,
 )
 
 from gitory.domain.models.diff import StatusEntry, StatusResult
@@ -54,7 +55,6 @@ class CommitDialog(QDialog):
         splitter = QSplitter(Qt.Orientation.Vertical)
 
         # Staged files.
-        staged_container = QVBoxLayout()
         staged_label = QLabel("Staged Changes")
         staged_label.setObjectName("sectionHeader")
 

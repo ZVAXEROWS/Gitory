@@ -111,10 +111,7 @@ class GraphView(QGraphicsView):
             super().wheelEvent(event)
             return
 
-        if delta > 0:
-            factor = self._zoom_factor
-        else:
-            factor = 1.0 / self._zoom_factor
+        factor = self._zoom_factor if delta > 0 else 1.0 / self._zoom_factor
 
         # Clamp zoom level.
         new_zoom = self._current_zoom * factor
@@ -148,11 +145,10 @@ class GraphView(QGraphicsView):
 
     def mouseReleaseEvent(self, event) -> None:
         """Stop panning."""
-        if event.button() in (Qt.MouseButton.MiddleButton, Qt.MouseButton.LeftButton):
-            if self._panning:
-                self._panning = False
-                self.setCursor(Qt.CursorShape.ArrowCursor)
-                return
+        if event.button() in (Qt.MouseButton.MiddleButton, Qt.MouseButton.LeftButton) and self._panning:
+            self._panning = False
+            self.setCursor(Qt.CursorShape.ArrowCursor)
+            return
         super().mouseReleaseEvent(event)
 
     def mouseDoubleClickEvent(self, event) -> None:
